@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-
+import { urlConfig } from '../../config';
+import {useAppContext} from '../../context/AuthContext.js';
+import { useNavigate } from 'react-router-dom';
 import './RegisterPage.css';
 
 function RegisterPage() {
@@ -9,10 +11,49 @@ function RegisterPage() {
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    // insert code here to create handleRegister function and include console.log
+
+    //Do these tasks inside the RegisterPage function, after the useStates definition
+    //Task 4: Include a state for error message.
+    const [showerr, setShowerr] = useState(''); 
+    //Task 5: Create a local variable for `navigate`   and `setIsLoggedIn`.
+    const navigate = useNavigate();
+    const { setIsLoggedIn } = useAppContext();
+
     const handleRegister = async () => {
-        console.log('User registered');
+        try{
+            const response = await fetch(`${urlConfig.backendUrl}/api/auth/register`, {
+                //{{Insert code here}} //Task 6: Set method
+                method: 'POST',
+                //{{Insert code here}} //Task 7: Set headers
+                headers: {
+                    'content-type': 'application/json',
+                },
+                //{{Insert code here}} //Task 8: Set body to send user details
+                body: JSON.stringify({
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    password: password
+                })
+            });
+            const json = await response.json();
+            if (json.authtoken) {
+                sessionStorage.setItem('auth-token', json.authtoken);
+                sessionStorage.setItem('name', firstName);
+                sessionStorage.setItem('email', json.email);
+                setIsLoggedIn(true);
+                navigate('/app');
+            }
+            
+            if (json.error) {
+                setShowerr(json.error);
+            }
+
+        } catch (e) {
+            console.log("Error fetching details: " + e.message);
+        }
     }
+
     return (
         <div className="container mt-5">
             <div className="row justify-content-center">
