@@ -38,7 +38,7 @@
 .details-title {
     font-size: 1.5rem;
     color: #2c3e50;
-    font-weight: 600;
+    font-weight: bold;
     margin-bottom: 0.5rem;
 }
 
@@ -49,4 +49,24 @@
     margin-top: 1.5rem;
     border-radius: 8px;
     border: 1px solid #e9ecef;
+}
+
+/* Style for individual comment card */
+.comments-section .card {
+    margin-bottom: 15px; /* Add bottom margin for spacing between cards */
+    /* Additional styles for individual comment card */
+}
+
+
+/* Style for comment author */
+.comments-section .comment-author {
+    font-weight: bold; /* Make the comment author's name bold */
+    /* Additional styles for comment author */
+}
+
+
+/* Style for comment text */
+.comments-section .comment-text {
+    /* Additional styles for comment text */
+    color: #555;
 }
