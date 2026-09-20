@@ -22,7 +22,7 @@ app.use(express.json());
 
 // Route files
 const giftRoutes = require('./routes/giftRoutes');
-const searchRoutes = require('./routes/searchRoutes')
+const searchRoutes = require('./routes/searchRoutes');
 const authRoutes = require('./routes/authRoutes');
 
 const pinoHttp = require('pino-http');
@@ -42,8 +42,8 @@ app.use((err, req, res, next) => {
 });
 
 app.get("/",(req,res)=>{
-    res.send("Inside the server")
-})
+    res.send("Inside the server");
+});
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
